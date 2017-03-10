@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="./css/bootstrap-3.3.7.min.css">
+    <link type="text/css" rel="stylesheet" href="./css/demo.css">
+    <script type="text/javascript" src="./js/spin.js"></script>
+    <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-3.3.7.min.js"></script>
+    <script type="text/javascript" src="./js/handlebars-v3.0.0.js"></script>
+    <script type="text/javascript" src="./js/pods.js"></script>
+</head>
+<body>
+    <div id = "alert_placeholder" class="onwindowtop"></div>
+    <div class="container1" id="container1">
+        <div class="configitem" >
+            <button type="button" class="refresh pull-right">更新全部镜像</button>
+            <button type="button" class="newfolder pull-right">+&nbsp;新增</button>
+            <input type="button" class="mirrorschedule pull-right"  id="schedule" value=""/>
+        </div>
+        <div class="table1">
+            <div class="tableheader">
+                <ul>
+                    <li>Pid</li>
+                    <li>podName</li>
+                    <li>操作</li>
+                </ul>
+            </div>
+            <ul class="tablelist">
+
+            </ul>
+        </div>
+    </div>
+
+    <script id="templi" type="text/x-handlebars-template">
+        {{#each data}}
+        <li class="datali">
+            <input type="text" value="{{pid}}" class="pid" readonly="true" />
+            <input type="text" value="{{podName}}" class="podName" readonly="true" />
+            <div class="operation">
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)" class="editli" data-index={{@index}}>编辑</a>
+                        <a href="javascript:void(0)" class="removeli" data-index={{@index}}>删除</a>
+                        <a href="javascript:void(0)" class="mirrorli" data-index={{@index}}>镜像</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        {{/each}}
+    </script>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">添加新Pod</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="noReplaceSource" class="control-label" id="noReplaceSource-label">不镜像仓库不替换source,只复制podspec:</label>
+                            <input type="checkbox" class="checkfri" id="noReplaceSource">
+                        </div>
+                        <div class="form-group">
+                            <label for="pod-name" class="control-label" id="pod-name-label">podName:</label>
+                            <input type="text" class="form-control pod-name" id="pod-name">
+                        </div>
+                        <div class="form-group" id="form-sourceHttpUrl">
+                            <label for="sourceHttpUrl" class="control-label" id="sourceHttpUrl-label">sourceHttpUrl:</label>
+                            <input type="text" class="form-control sourceHttpUrl" id="sourceHttpUrl">
+                        </div>
+                        <div class="form-group" id="form-specSourceHttpUrl">
+                            <label for="specSourceHttpUrl" class="control-label" id="specSourceHttpUrl-label">specSourceHttpUrl:</label>
+                            <input type="text" class="form-control specSourceHttpUrl" id="specSourceHttpUrl">
+                        </div>
+                        <div class="form-group" id="form-mirrorSSHUrl">
+                            <label for="mirrorSSHUrl" class="control-label" id="mirrorSSHUrl-label">mirrorSSHUrl:</label>
+                            <input type="text" class="form-control mirrorSSHUrl" id="mirrorSSHUrl">
+                        </div>
+                        <div class="form-group" id="form-mirrorHttpUrl">
+                            <label for="mirrorHttpUrl" class="control-label" id="mirrorHttpUrl-label">mirrorHttpUrl:</label>
+                            <input type="text" class="form-control mirrorHttpUrl" id="mirrorHttpUrl">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                    <button type="button" class="creatconfri btn btn-primary" id="confir" value=""></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- 模态框（Modal） 是否删除-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">删除</h4>
+                </div>
+                <div class="modal-body">
+                    删除后不可恢复,是否确认删除?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                    <button type="button" class="deleteconfir btn btn-primary">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

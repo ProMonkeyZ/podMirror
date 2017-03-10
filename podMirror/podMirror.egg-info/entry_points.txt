@@ -1,0 +1,6 @@
+[gearbox.plugins]
+turbogears-devtools = tg.devtools
+
+[paste.app_factory]
+main = podmirror.config.middleware:make_app
+
